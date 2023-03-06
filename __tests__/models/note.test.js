@@ -7,6 +7,10 @@ describe('Note model', () => {
         note = new Note();
     });
 
+    test('constructor is a function', () => {
+        expect(typeof Note).toBe('function');
+      });
+
     describe('getNoteById', () => {
         test('is a function', () => {
             expect(typeof note.getNoteById).toBe('function');
