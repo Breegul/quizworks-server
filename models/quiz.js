@@ -13,6 +13,24 @@ class Quiz {
         const res = await pool.query(query);
         return res.rows.map(q => new Quiz(q));
     }
+
+    static async getById(id) {
+        const query = {
+            text: "SELECT * FROM quizzes WHERE id = $1;",
+            values: [id]
+        }
+        const res = await pool.query(query);
+        return res.rows[0];
+    }
+
+    static async getByUserId(user_id) {
+        const query = {
+            text: "SELECT * FROM quizzes WHERE user_id = $1;",
+            values: [user_id]
+        }
+        const res = await pool.query(query);
+        return res.rows.map(q => new Quiz(q));
+    }
 }
 
 module.exports = Quiz;
