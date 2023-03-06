@@ -1,6 +1,10 @@
 const Token = require('../../models/token');
 
 describe('Token model', () => {
+
+  test('constructor is a function', () => {
+    expect(typeof Token).toBe('function');
+  });
   describe('createToken', () => {
     test('is a function', () => {
       expect(typeof Token.prototype.createToken).toBe('function');
