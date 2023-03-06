@@ -25,9 +25,9 @@ server.get('/', (req, res) => {
 });
 
 // Routes
-server.use('/users', userRoutes);
-server.use('/quizzes', tokenController.authenticateUser, quizRoutes);
-server.use('/notes', tokenController.authenticateUser, noteRoutes);
+//server.use('/users', userRoutes);
+//server.use('/quizzes', tokenController.authenticateUser, quizRoutes);
+//server.use('/notes', tokenController.authenticateUser, noteRoutes);
 
 //Error handling middleware
 server.use((err, req, res, next) => {
