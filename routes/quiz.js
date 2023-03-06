@@ -3,9 +3,9 @@ const quizController = require('../controllers/quiz');
 const router = Router();
 //const { authenticateToken } = require("../controller/token");
 
-router.get('/', quiz.quizController.index);
-router.get('/:id', quizController.show);
-router.get('/user/:id', quizController.indexUserId);
+router.get('/', quizController.getAllQuizzes);
+router.get('/:id', quizController.getOneQuizById);
+router.get('/user/:id', quizController.getAllQuizzesByUserId);
 //router.patch("/:id", authenticateToken, quizController.updateQuizById);
 router.put("/:id", quizController.updateQuizById);
 //router.delete("/:id", authenticateToken, quizController.deleteQuizById);
