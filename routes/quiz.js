@@ -17,6 +17,6 @@ router.post("/", quizController.createQuiz)
 router.get("/:id/questions", questionController.getByQuizId);
 router.get("/:id/questions/:q_id", questionController.getByQuestionId);
 router.post("/:id/questions", questionController.createQuestion);
-router.delete("/:id/questions/:q_id", questionController.deleteQuestion);
+router.delete("/:id/questions/:q_id", questionController.deleteQuestion); // since delete doesn't use :id can be left as 0
 
 module.exports = router;

@@ -35,7 +35,7 @@ async function deleteQuestion(req, res) {
         const id = parseInt(req.params.q_id);
         const question = await Question.getByQuestionId(id);
         await question.deleteQuestion();
-        res.status(204);
+        res.sendStatus(204);
     } catch (err) {
         res.status(500).json({ "error": err.message });
     }

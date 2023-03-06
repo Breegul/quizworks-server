@@ -1,8 +1,8 @@
 const pool = require('../database/pool.js');
 
 class Question {
-    constructor({ question_id, text, quiz_id }) {
-        this.id = question_id;
+    constructor({ id, text, quiz_id }) {
+        this.id = id;
         this.text = text;
         this.quiz_id = quiz_id;
     }
@@ -24,11 +24,11 @@ class Question {
     static async getByQuestionId(question_id) {
         try {
             const query = {
-                text: "SELECT * FROM questions WHERE question_id = $1;",
+                text: "SELECT * FROM questions WHERE id = $1;",
                 values: [question_id]
             }
             const res = await pool.query(query);
-            return res.rows.map(q => new Question(q));
+            return new Question(res.rows[0]);
         } catch (error) {
             console.error(error);
             throw new Error('An error occurred while getting a quiz by id.');
@@ -49,14 +49,13 @@ class Question {
         }
     }
 
-    async deleteQuestion(id) {
+    async deleteQuestion() {
         try {
             const query = {
                 text: 'DELETE FROM questions WHERE id = $1 RETURNING *;', 
                 values: [this.id]
             }
             const res = await pool.query(query);
-            console.log(res);
             return new Question(res.rows[0])
         } catch (error) {
             console.error(error);
