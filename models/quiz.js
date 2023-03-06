@@ -47,6 +47,20 @@ class Quiz {
         }
     }
 
+    static async create(data) {
+        try {
+            const query = {
+                text: "INSERT INTO quizzes (title, description, user_id) VALUES ($1, $2, $3) RETURNING *;",
+                values: [data.title, data.description, data.user_id]
+            }
+            const res = await pool.query(query);
+            return res.rows[0];
+        } catch (error) {
+            console.error(error);
+            throw new Error("An error occurred while creating a quiz")
+        }
+    }
+
     async updateQuizById(id, title, description, user_id) {
         try {
             const query =
