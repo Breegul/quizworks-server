@@ -17,7 +17,7 @@ class Question {
             return res.rows.map(q => new Question(q));
         } catch (error) {
             console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            throw new Error('An error occurred while getting a question by quiz_id.');
         }
     }
 
@@ -31,7 +31,7 @@ class Question {
             return new Question(res.rows[0]);
         } catch (error) {
             console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            throw new Error('An error occurred while getting a question by id.');
         }
     }
 
@@ -45,7 +45,7 @@ class Question {
             return res.rows[0];
         } catch (error) {
             console.error(error);
-            throw new Error("An error occurred while creating a quiz")
+            throw new Error("An error occurred while creating a question")
         }
     }
 
@@ -59,27 +59,9 @@ class Question {
             return new Question(res.rows[0])
         } catch (error) {
             console.error(error);
-            throw new Error('An error occurred while deleting quiz by id.');
+            throw new Error('An error occurred while deleting a question.');
         }
     }
-
-    // async updateQuizById(id, title, description, user_id) {
-    //     try {
-    //         const query =
-    //             'UPDATE quizzes SET title = $2, description = $3, user_id = $4 WHERE id = $1 RETURNING *';
-    //         const values = [id, title, description, user_id];
-    //         const { rows } = await pool.query(query, values);
-    //         if (rows.length !== 1) {
-    //             throw new Error('Unable to update quiz.');
-    //         }
-    //         return rows[0];
-    //     } catch (error) {
-    //         console.error(error);
-    //         throw new Error('An error occurred while updating quiz by id.');
-    //     }
-    // }
-
-
 }
 
 module.exports = Question;
