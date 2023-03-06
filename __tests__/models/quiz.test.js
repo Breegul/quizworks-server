@@ -6,7 +6,9 @@ describe('Quiz model', () => {
     beforeAll(() => {
         quiz = new Quiz({ quiz_id: 1, title: 'Math Quiz', description: 'A quiz about math', user_id: 1 });
     });
-
+    test('constructor is a function', () => {
+        expect(typeof Quiz).toBe('function');
+      });
     describe('getAllQuizzes', () => {
         test('is a function', () => {
             expect(typeof quiz.getAllQuizzes).toBe('function');
