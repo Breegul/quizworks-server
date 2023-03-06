@@ -8,7 +8,7 @@ class Quiz {
         this.user_id = user_id;
     }
 
-    static async getAllQuizzes() {
+    async getAllQuizzes() {
         try {
             const query = "SELECT * FROM quizzes;";
             const res = await pool.query(query);
@@ -19,7 +19,7 @@ class Quiz {
         }
     }
 
-    static async getAllQuizzesByUserId(user_id) {
+    async getAllQuizzesByUserId(user_id) {
         try {
             const query = {
                 text: "SELECT * FROM quizzes WHERE user_id = $1;",
@@ -33,7 +33,7 @@ class Quiz {
         }
     }
 
-    static async getOneQuizById(id) {
+    async getOneQuizById(id) {
         try {
             const query = {
                 text: "SELECT * FROM quizzes WHERE id = $1;",
