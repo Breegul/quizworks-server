@@ -49,7 +49,7 @@ class Question {
         }
     }
 
-    async deleteQuestion() {
+    async destroy() {
         try {
             const query = {
                 text: 'DELETE FROM questions WHERE id = $1 RETURNING *;', 

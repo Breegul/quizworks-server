@@ -17,13 +17,13 @@ router.post("/", quizController.createQuiz)
 // question routes
 router.get("/:id/questions", questionController.getByQuizId);
 router.get("/:id/questions/:q_id", questionController.getByQuestionId);
-router.post("/:id/questions", questionController.createQuestion);
-router.delete("/:id/questions/:q_id", questionController.deleteQuestion); // since delete doesn't use :id can be left as 0
+router.post("/:id/questions", questionController.create);
+router.delete("/:id/questions/:q_id", questionController.destroy); // since delete doesn't use :id, it can be left as 0
 
 // answer routes
 router.get("/:id/questions/:q_id/answers", answerController.getByQuestionId);
 router.get("/:id/questions/:q_id/answers/:a_id", answerController.getByAnswerId);
-router.post("/:id/questions/:q_id/answers", answerController.createAnswer);
-router.delete("/:id/questions/:q_id/answers/:a_id", answerController.deleteAnswer);
+router.post("/:id/questions/:q_id/answers", answerController.create);
+router.delete("/:id/questions/:q_id/answers/:a_id", answerController.destroy);
 
 module.exports = router;

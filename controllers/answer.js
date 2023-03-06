@@ -20,7 +20,7 @@ async function getByAnswerId(req, res) {
     }
 }
 
-async function createAnswer(req, res) {
+async function create(req, res) {
     try {
         req.body.question_id = parseInt(req.params.q_id);
         const answer = await Answer.create(req.body);
@@ -30,11 +30,11 @@ async function createAnswer(req, res) {
     }
 }
 
-async function deleteAnswer(req, res) {
+async function destroy(req, res) {
     try {
         const id = parseInt(req.params.a_id);
         const answer = await Answer.getByAnswerId(id);
-        await answer.deleteAnswer();
+        await answer.destroy();
         res.sendStatus(204);
     } catch (err) {
         res.status(500).json({ "error": err.message });
@@ -44,6 +44,6 @@ async function deleteAnswer(req, res) {
 module.exports = {
     getByQuestionId,
     getByAnswerId,
-    createAnswer,
-    deleteAnswer
+    create,
+    destroy
 }
