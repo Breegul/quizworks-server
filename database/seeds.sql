@@ -1,22 +1,36 @@
 -- Insert some sample users
 INSERT INTO users (username, password, role) VALUES
-    ('john_doe', crypt('mysecretpassword', gen_salt('bf')), 'student'),
-    ('jane_smith', crypt('myp@ssw0rd', gen_salt('bf')), 'teacher'),
-    ('bob_jones', crypt('password123', gen_salt('bf')), 'student');
+    ('user1', 'password1', 'student'),
+    ('user2', 'password2', 'teacher'),
+    ('user3', 'password3', 'student');
 
--- Insert some sample quizzes for user 'john_doe'
+-- Insert some sample quizzes for user1
 INSERT INTO quizzes (title, description, user_id) VALUES
-    ('Math Quiz 1', 'A quiz on basic arithmetic.', '123e4567-e89b-12d3-a456-426655440000'),
-    ('English Quiz 1', 'A quiz on grammar and vocabulary.', '123e4567-e89b-12d3-a456-426655440000'),
-    ('Science Quiz 1', 'A quiz on the basics of physics and chemistry.', '123e4567-e89b-12d3-a456-426655440000');
+    ('Math Quiz 1', 'A quiz on basic arithmetic.', 1),
+    ('English Quiz 1', 'A quiz on grammar and vocabulary.', 1),
+    ('Science Quiz 1', 'A quiz on the basics of physics and chemistry.', 1);
 
--- Insert some sample quizzes for user 'jane_smith'
+-- Insert some sample quizzes for user2
 INSERT INTO quizzes (title, description, user_id) VALUES
-    ('History Quiz 1', 'A quiz on world history.', '223e4567-e89b-12d3-a456-426655440000'),
-    ('Geography Quiz 1', "A quiz on the world's continents and oceans.", '223e4567-e89b-12d3-a456-426655440000');
+    ('History Quiz 1', 'A quiz on world history.', 2),
+    ('Geography Quiz 1', 'A quiz on the world continents and oceans.', 2);
 
--- Insert some sample notes for user 'bob_jones'
+-- Insert some sample notes for user3
 INSERT INTO notes (title, content, user_id) VALUES
-    ('Math Notes', 'My notes on algebra and geometry.', '323e4567-e89b-12d3-a456-426655440000'),
-    ('Science Notes', 'My notes on biology and earth science.', '323e4567-e89b-12d3-a456-426655440000'),
-    ('English Notes', 'My notes on Shakespeare and modern literature.', '323e4567-e89b-12d3-a456-426655440000');
+    ('Math Notes', 'My notes on algebra and geometry.', 3),
+    ('Science Notes', 'My notes on biology and earth science.', 3),
+    ('English Notes', 'My notes on Shakespeare and modern literature.', 3);
+
+-- Insert some sample tokens for user 1
+INSERT INTO tokens (user_id, token_hash, expiration_time) VALUES
+    (1, 'hash1', NOW() + INTERVAL '1 day'),
+    (1, 'hash2', NOW() + INTERVAL '2 days');
+
+-- Insert some sample tokens for user 2
+INSERT INTO tokens (user_id, token_hash, expiration_time) VALUES
+    (2, 'hash3', NOW() + INTERVAL '3 days');
+
+-- Insert some sample tokens for user 3
+INSERT INTO tokens (user_id, token_hash, expiration_time) VALUES
+    (3, 'hash4', NOW() + INTERVAL '4 days'),
+    (3, 'hash5', NOW() + INTERVAL '5 days');
