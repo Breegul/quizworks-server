@@ -39,14 +39,28 @@ class Answer {
     static async create(data) {
         try {
             const query = {
-                text: "INSERT INTO answers (text, is_correct, quiz_id) VALUES ($1, $2, $3) RETURNING *;",
-                values: [data.text, data.is_correct, data.quiz_id]
+                text: "INSERT INTO answers (text, is_correct, question_id) VALUES ($1, $2, $3) RETURNING *;",
+                values: [data.text, data.is_correct, data.question_id]
             }
             const res = await pool.query(query);
             return res.rows[0];
         } catch (error) {
             console.error(error);
             throw new Error("An error occurred while creating an answer")
+        }
+    }
+
+    async deleteQuestion() {
+        try {
+            const query = {
+                text: 'DELETE FROM answers WHERE id = $1 RETURNING *;', 
+                values: [this.id]
+            }
+            const res = await pool.query(query);
+            return new Answer(res.rows[0])
+        } catch (error) {
+            console.error(error);
+            throw new Error('An error occurred while deleting an answer.');
         }
     }
 }

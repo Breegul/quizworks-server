@@ -21,7 +21,13 @@ async function getByAnswerId(req, res) {
 }
 
 async function createAnswer(req, res) {
-
+    try {
+        req.body.question_id = parseInt(req.params.q_id);
+        const answer = await Answer.create(req.body);
+        res.status(201).json(answer);
+    } catch (err) {
+        res.status(500).json({ "error": err.message });
+    }
 }
 
 async function deleteAnswer(req, res) {

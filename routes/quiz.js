@@ -23,7 +23,7 @@ router.delete("/:id/questions/:q_id", questionController.deleteQuestion); // sin
 // answer routes
 router.get("/:id/questions/:q_id/answers", answerController.getByQuestionId);
 router.get("/:id/questions/:q_id/answers/:a_id", answerController.getByAnswerId);
-// router.post("/:id/questions/:q_id/answers", answerController.createAnswer);
+router.post("/:id/questions/:q_id/answers", answerController.createAnswer);
 // router.delete("/:id/questions/:q_id/answers/:a_id", answerController.deleteAnswer);
 
 module.exports = router;
