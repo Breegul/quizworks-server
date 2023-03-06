@@ -27,7 +27,7 @@ server.get('/', (req, res) => {
 // Routes
 server.use('/users', userRoutes);
 server.use('/quizzes', quizRoutes); // add later: tokenController.authenticateUser,
-//server.use('/notes', tokenController.authenticateUser, noteRoutes);
+server.use('/notes', tokenController.authenticateUser, noteRoutes);
 
 //Error handling middleware
 server.use((err, req, res, next) => {
