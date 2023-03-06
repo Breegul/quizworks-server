@@ -50,7 +50,7 @@ class Answer {
         }
     }
 
-    async deleteQuestion() {
+    async deleteAnswer() {
         try {
             const query = {
                 text: 'DELETE FROM answers WHERE id = $1 RETURNING *;', 
