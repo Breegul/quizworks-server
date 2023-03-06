@@ -8,7 +8,7 @@ class Quiz {
         this.user_id = user_id;
     }
 
-    async getAllQuizzes() {
+    static async getAllQuizzes() {
         try {
             const query = "SELECT * FROM quizzes;";
             const res = await pool.query(query);
