@@ -24,7 +24,7 @@ class Token {
     }
   }
 
-  static async getTokenByTokenHash(tokenHash) {
+  async getTokenByTokenHash(tokenHash) {
     try {
       const query = 'SELECT * FROM tokens WHERE token_hash = $1';
       const values = [tokenHash];
@@ -40,7 +40,7 @@ class Token {
     }
   }
 
-  static async deleteTokenByTokenHash(tokenHash) {
+  async deleteTokenByTokenHash(tokenHash) {
     try {
       const query = 'DELETE FROM tokens WHERE token_hash = $1';
       const values = [tokenHash];
