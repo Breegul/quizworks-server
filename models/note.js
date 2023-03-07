@@ -18,8 +18,8 @@ class Note {
             }
             return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while retrieving task by id');
+            //console.error(error);
+            throw new Error('Unable to locate note.');
         }
     }
 
@@ -30,8 +30,8 @@ class Note {
             const { rows } = await pool.query(query, values);
             return rows;
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while retrieving task by id');
+            //console.error(error);
+            throw new Error('Unable to locate note.');
         }
     }
 
@@ -42,8 +42,8 @@ class Note {
             const { rows } = await pool.query(query, values);
             return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while retrieving task by id');
+            //console.error(error);
+            throw new Error('Unable to locate note.');
         }
     }
 
@@ -57,8 +57,8 @@ class Note {
             }
             return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while retrieving task by id');
+            //console.error(error);
+            throw new Error('Unable to locate note.');
         }
     }
 
@@ -68,8 +68,8 @@ class Note {
             const values = [id];
             await pool.query(query, values);
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while retrieving task by id');
+            //console.error(error);
+            throw new Error('Unable to locate note.');
         }
     }
 }
