@@ -86,7 +86,7 @@ class User {
 
     async verifyUser(username, password) {
         try {
-            const user = await User.getUserByUsername(username);
+            const user = await this.getUserByUsername(username);
             if (!user) {
                 throw new Error('User not found');
             }
