@@ -1,4 +1,6 @@
 -- Development script
+DROP TABLE IF EXISTS answers;
+DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS notes;
 DROP TABLE IF EXISTS tokens;
@@ -16,6 +18,19 @@ CREATE TABLE quizzes (
     title varchar(255) NOT NULL,
     description text,
     user_id INT REFERENCES users(id)
+);
+
+CREATE TABLE questions (
+    id SERIAL PRIMARY KEY,
+    text text NOT NULL,
+    quiz_id INT REFERENCES quizzes(id)
+);
+
+CREATE TABLE answers (
+    id SERIAL PRIMARY KEY,
+    text text NOT NULL,
+    is_correct BOOLEAN,
+    question_id INT REFERENCES questions(id)
 );
 
 CREATE TABLE notes (

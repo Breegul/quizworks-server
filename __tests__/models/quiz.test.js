@@ -11,7 +11,7 @@ describe('Quiz model', () => {
       });
     describe('getAllQuizzes', () => {
         test('is a function', () => {
-            expect(typeof quiz.getAllQuizzes).toBe('function');
+            expect(typeof Quiz.getAllQuizzes).toBe('function');
         });
     });
 

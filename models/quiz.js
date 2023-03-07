@@ -1,14 +1,14 @@
 const pool = require('../database/pool.js');
 
 class Quiz {
-    constructor({ quiz_id, title, description, user_id }) {
-        this.id = quiz_id;
+    constructor({ id, title, description, user_id }) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.user_id = user_id;
     }
 
-    async getAllQuizzes() {
+    static async getAllQuizzes() {
         try {
             const query = "SELECT * FROM quizzes;";
             const res = await pool.query(query);
@@ -33,7 +33,7 @@ class Quiz {
         }
     }
 
-    async getOneQuizById(id) {
+    static async getOneQuizById(id) {
         try {
             const query = {
                 text: "SELECT * FROM quizzes WHERE id = $1;",

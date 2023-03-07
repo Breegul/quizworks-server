@@ -15,6 +15,29 @@ INSERT INTO quizzes (title, description, user_id) VALUES
     ('History Quiz 1', 'A quiz on world history.', 2),
     ('Geography Quiz 1', 'A quiz on the world continents and oceans.', 2);
 
+INSERT INTO questions (text, quiz_id) VALUES
+    ('What is 1+1', 1),
+    ('What is 2*2', 1),
+    ('What is the past tense of throw', 2),
+    ('What is the largest ocean?', 5);
+
+INSERT INTO answers (text, is_correct, question_id) VALUES
+    ('3', FALSE, 1),
+    ('2', TRUE, 1),
+    ('4', FALSE, 1),
+    ('64', FALSE, 1),
+    ('4', TRUE, 2),
+    ('8', FALSE, 2),
+    ('16', FALSE, 2),
+    ('32', FALSE, 2),
+    ('Throwed', FALSE, 3),
+    ('Threw', TRUE, 3),
+    ('Pacific', TRUE, 4),
+    ('Indian', FALSE, 4),
+    ('Panthalassa', TRUE, 4);
+
+
+
 -- Insert some sample notes for user3
 INSERT INTO notes (title, content, user_id) VALUES
     ('Math Notes', 'My notes on algebra and geometry.', 3),
