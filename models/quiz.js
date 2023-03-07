@@ -33,7 +33,7 @@ class Quiz {
         }
     }
 
-    async getOneQuizById(id) {
+    static async getOneQuizById(id) {
         try {
             const query = {
                 text: "SELECT * FROM quizzes WHERE id = $1;",
