@@ -1,5 +1,8 @@
 const userModel = require('../models/user.js');
 const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
+dotenv.config();
+
 const jwt = require('jsonwebtoken');
 
 async function getUserById(req, res) {

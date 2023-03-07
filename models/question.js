@@ -1,4 +1,4 @@
-const pool = require('../database/pool.js');
+const {pool} = require('../database/pool.js');
 
 class Question {
     constructor({ id, text, quiz_id }) {
