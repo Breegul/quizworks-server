@@ -17,7 +17,7 @@ async function getNoteById(req, res) {
 async function getAllNotesByUserId(req, res) {
     const { userId } = req.params;
     try {
-        const notesData = await note.getAllByUserId(userId);
+        const notesData = await noteModel.getAllByUserId(userId);
         return res.json(notesData);
     } catch (err) {
         console.error(err);

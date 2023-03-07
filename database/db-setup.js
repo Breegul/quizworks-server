@@ -17,7 +17,13 @@ async function setupDatabase() {
   } finally {
     client.release();
     client.end();
+    //pool.end();
   }
 }
 
 setupDatabase();
+
+// Export for testing purposes
+module.exports = {
+  setupDatabase
+}
