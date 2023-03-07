@@ -1,8 +1,8 @@
 const pool = require('../database/pool.js');
 
 class Quiz {
-    constructor({ quiz_id, title, description, user_id }) {
-        this.id = quiz_id;
+    constructor({ id, title, description, user_id }) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.user_id = user_id;
