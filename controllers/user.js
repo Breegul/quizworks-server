@@ -27,7 +27,9 @@ async function getUserById(req, res) {
   async function createUser(req, res) {
     try {
       const { username, password, role } = req.body;
-      const user = await userModel.createUser(username, password, role);
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const user = await userModel.createUser(username, hashedPassword, role);
       res.status(201).json(user);
     } catch (err) {
       console.error(err);
@@ -62,7 +64,7 @@ async function getUserById(req, res) {
     try {
       const { username, password } = req.body;
       const user = await userModel.verifyUser(username, password);
-      if (!user) {
+      if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ error: 'Invalid username or password.' });
       }
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
