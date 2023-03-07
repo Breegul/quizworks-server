@@ -19,9 +19,15 @@ describe('Answer controller', () => {
         });
     });
 
-    describe('', () => {
+    describe('destroy', () => {
         test('is a function', () => {
             expect(typeof answerController.destroy).toBe('function');
+        });
+    });
+
+    describe('update', () => {
+        test('is a function', () => {
+            expect(typeof answerController.update).toBe('function');
         });
     });
 })

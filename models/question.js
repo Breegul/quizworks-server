@@ -1,4 +1,4 @@
-const {pool} = require('../database/pool.js');
+const { pool } = require('../database/pool.js');
 
 class Question {
     constructor({ id, text, quiz_id }) {
@@ -52,7 +52,7 @@ class Question {
     async destroy() {
         try {
             const query = {
-                text: 'DELETE FROM questions WHERE id = $1 RETURNING *;', 
+                text: 'DELETE FROM questions WHERE id = $1 RETURNING *;',
                 values: [this.id]
             }
             const res = await pool.query(query);
@@ -61,6 +61,21 @@ class Question {
             console.error(error);
             throw new Error('An error occurred while deleting a question.');
         }
+    }
+
+    async update(data) {
+        try {
+            const query = {
+                text: "UPDATE questions SET text = $1 WHERE id = $2 RETURNING *;",
+                values: [data.text, this.id]
+            }
+            const res = await pool.query(query);
+            return new Question(res.rows[0]);
+        } catch (error) {
+            console.error(error);
+            throw new Error('An error occurred while editing a question.')
+        }
+
     }
 }
 
