@@ -10,11 +10,11 @@ describe('User', () => {
   });
 
   test('getUserByUsername is a function', () => {
-    expect(typeof User.prototype.getUserByUsername).toBe('function');
+    expect(typeof User.getUserByUsername).toBe('function');
   });
 
   test('createUser is a function', () => {
-    expect(typeof User.prototype.createUser).toBe('function');
+    expect(typeof User.createUser).toBe('function');
   });
 
   test('updateUser is a function', () => {
@@ -26,6 +26,6 @@ describe('User', () => {
   });
 
   test('verifyUser is a function', () => {
-    expect(typeof User.prototype.verifyUser).toBe('function');
+    expect(typeof User.verifyUser).toBe('function');
   });
 });

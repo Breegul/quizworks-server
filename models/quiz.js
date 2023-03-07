@@ -41,7 +41,7 @@ class Quiz {
             }
             const { rows } = await pool.query(query);
             if (rows.length !== 1) {
-                throw new Error('Unable to update quiz.');
+                throw new Error('Unable to locate quiz.');
             }
             return rows[0];
         } catch (error) {
