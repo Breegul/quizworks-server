@@ -63,6 +63,20 @@ class Answer {
             throw new Error('An error occurred while deleting an answer.');
         }
     }
+
+    async update(data) {
+        try {
+            const query = {
+                text: 'UPDATE answers SET text = $1, is_correct = $2 WHERE id = $3 RETURNING *;',
+                values: [data.text, data.is_correct, this.id]
+            }
+            const res = await pool.query(query);
+            return new Answer(res.rows[0]);
+        } catch (error) {
+            console.error(error);
+            throw new Error('An error occurred while updating an answer.')
+        }
+    }
 }
 
 module.exports = Answer;
