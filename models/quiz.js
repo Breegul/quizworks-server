@@ -14,8 +14,8 @@ class Quiz {
             const res = await pool.query(query);
             return res.rows.map(q => new Quiz(q));
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            //console.error(error);
+            throw new Error('Unable to locate quiz.');
         }
     }
 
@@ -28,8 +28,8 @@ class Quiz {
             const res = await pool.query(query);
             return res.rows.map(q => new Quiz(q));
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            //console.error(error);
+            throw new Error('Unable to locate quiz.');
         }
     }
 
@@ -39,11 +39,14 @@ class Quiz {
                 text: "SELECT * FROM quizzes WHERE id = $1;",
                 values: [id]
             }
-            const res = await pool.query(query);
-            return res.rows[0];
+            const { rows } = await pool.query(query);
+            if (rows.length !== 1) {
+                throw new Error('Unable to update quiz.');
+            }
+            return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            //console.error(error);
+            throw new Error('Unable to locate quiz.');
         }
     }
 
@@ -53,11 +56,14 @@ class Quiz {
                 text: "INSERT INTO quizzes (title, description, user_id) VALUES ($1, $2, $3) RETURNING *;",
                 values: [data.title, data.description, data.user_id]
             }
-            const res = await pool.query(query);
-            return res.rows[0];
+            const { rows } = await pool.query(query);
+            if (rows.length !== 1) {
+                throw new Error('Unable to update quiz.');
+            }
+            return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error("An error occurred while creating a quiz")
+            //console.error(error);
+            throw new Error("Unable to locate quiz.")
         }
     }
 
@@ -72,8 +78,8 @@ class Quiz {
             }
             return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while updating quiz by id.');
+            //console.error(error);
+            throw new Error('Unable to locate quiz.');
         }
     }
 
@@ -83,8 +89,8 @@ class Quiz {
             const values = [id];
             await pool.query(query, values);
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while deleting quiz by id.');
+            //console.error(error);
+            throw new Error('Unable to locate quiz.');
         }
     }
 }
