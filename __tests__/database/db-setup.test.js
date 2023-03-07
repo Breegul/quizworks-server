@@ -1,4 +1,4 @@
-const { setupDatabase } = require('../../database/db-setup');
+const setupDatabase = require('../../database/db-setup');
 
 describe('Database setup', () => {
     test('setupDatabase should be a function', () => {
