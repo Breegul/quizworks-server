@@ -18,10 +18,10 @@ server.use(morgan('tiny'));
 
 // Define a route for the home page
 server.get('/', (req, res) => {
-    res.json({
-        name: "Application",
-        description: "GET / route homepage"
-    })
+  res.json({
+    name: "Application",
+    description: "GET / route homepage"
+  })
 });
 
 // Routes
@@ -36,30 +36,40 @@ server.use((err, req, res, next) => {
 });
 
 //server.listen(port, () => console.log(`Server listening on port ${port}`));
-
-function startServer() {
-  server.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+function startServer(done) {
+  const app = server.listen(port, () => {
+    if (!done) {
+      console.log(`Server listening on port ${port}`);
+    } else {
+      done();
+    }
   });
+  return app;
 }
 
-startServer()
+// Call the startServer function if the module is not being imported
+if (require.main === module) {
+  startServer();
+}
+//startServer()
 
-function closeServer() {
-  server.close(() => {
-    console.log('Server closed');
+function closeServer(app, done) {
+  app.close(() => {
+    if (!done) {
+      console.log('Server closed');
+    } else {
+      done();
+    }
   });
 }
-
-module.exports = {
-  startServer,
-  closeServer
-};
-
 // server.get('/stop', (req, res) => {
 //   res.send('Stopping server...');
 //   server.close();
 // });
 
+module.exports = {
+  startServer,
+  closeServer
+};
 // Export for testing purposes
 // module.exports = server;
