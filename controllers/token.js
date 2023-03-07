@@ -1,6 +1,7 @@
 const Token = require("../models/token");
 const User = require("../models/user");
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const { JWT_SECRET } = process.env;
 
 async function authenticateUser(req, res, next) {
