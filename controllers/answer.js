@@ -41,9 +41,21 @@ async function destroy(req, res) {
     }
 }
 
+async function update(req, res) {
+    try {
+        const id = parseInt(req.params.a_id);
+        const answer = await Answer.getByAnswerId(id);
+        const result = await answer.update(req.body);
+        res.status(200).json(result)
+    } catch (err) {
+        res.status(500).json({"error": err.message});
+    }
+}
+
 module.exports = {
     getByQuestionId,
     getByAnswerId,
     create,
-    destroy
+    destroy,
+    update
 }
