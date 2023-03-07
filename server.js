@@ -35,7 +35,31 @@ server.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-server.listen(port, () => console.log(`Server listening on port ${port}`));
+//server.listen(port, () => console.log(`Server listening on port ${port}`));
+
+function startServer() {
+  server.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+}
+
+startServer()
+
+function closeServer() {
+  server.close(() => {
+    console.log('Server closed');
+  });
+}
+
+module.exports = {
+  startServer,
+  closeServer
+};
+
+// server.get('/stop', (req, res) => {
+//   res.send('Stopping server...');
+//   server.close();
+// });
 
 // Export for testing purposes
-module.exports = server;
+// module.exports = server;

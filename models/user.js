@@ -103,5 +103,5 @@ class User {
     }
 }
 
-//module.exports = User;
-module.exports = new User();
+module.exports = User;
+//module.exports = new User();
