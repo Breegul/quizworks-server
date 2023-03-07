@@ -24,7 +24,7 @@ class User {
         }
     }
 
-    async getUserByUsername(username) {
+    static async getUserByUsername(username) {
         try {
             const query = 'SELECT * FROM users WHERE username = $1';
             const values = [username];
@@ -39,12 +39,10 @@ class User {
         }
     }
 
-    async createUser(username, password, role) {
+    static async createUser(username, password, role) {
         try {
-            const saltRounds = 10;
-            const hash = await bcrypt.hash(password, saltRounds);
             const query = 'INSERT INTO users (username, password, role) VALUES ($1, $2, $3) RETURNING *';
-            const values = [username, hash, role];
+            const values = [username, password, role];
             const { rows } = await pool.query(query, values);
             if (rows.length === 0) {
                 throw new Error('User not found');
@@ -84,9 +82,9 @@ class User {
         }
     }
 
-    async verifyUser(username, password) {
+    static async verifyUser(username, password) {
         try {
-            const user = await getUserByUsername(username);
+            const user = await this.getUserByUsername(username);
             if (!user) {
                 throw new Error('User not found');
             }
@@ -104,3 +102,4 @@ class User {
 }
 
 module.exports = User;
+//module.exports = new User();
