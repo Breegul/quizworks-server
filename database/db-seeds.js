@@ -17,7 +17,13 @@ async function seedDatabase() {
   } finally {
     client.release();
     client.end();
+    //pool.end();
   }
 }
 
 seedDatabase();
+
+// Export for testing purposes
+module.exports = {
+  seedDatabase
+}

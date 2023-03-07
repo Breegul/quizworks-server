@@ -86,7 +86,7 @@ class User {
 
     async verifyUser(username, password) {
         try {
-            const user = await getUserByUsername(username);
+            const user = await User.getUserByUsername(username);
             if (!user) {
                 throw new Error('User not found');
             }
@@ -103,4 +103,5 @@ class User {
     }
 }
 
-module.exports = User;
+//module.exports = User;
+module.exports = new User();

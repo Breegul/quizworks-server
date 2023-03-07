@@ -41,7 +41,7 @@ async function updateQuizById(req, res) {
         const updatedQuiz = await Quiz.updateQuizById(req.params.id, req.body.title, req.body.description, req.user.id);
         return res.json(updatedQuiz);
     } catch (error) {
-        res.status(500).json({ "error": err.message });
+        res.status(500).json({ "error": error.message });
     }
 }
 
@@ -57,7 +57,7 @@ async function deleteQuizById(req, res, next) {
         await Quiz.deleteQuizById(req.params.id);
         return res.json({ message: 'Quiz deleted successfully' });
     } catch (error) {
-        res.status(500).json({ "error": err.message });
+        res.status(500).json({ "error": error.message });
     }
 }
 

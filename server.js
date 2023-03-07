@@ -36,3 +36,6 @@ server.use((err, req, res, next) => {
 });
 
 server.listen(port, () => console.log(`Server listening on port ${port}`));
+
+// Export for testing purposes
+module.exports = server;
