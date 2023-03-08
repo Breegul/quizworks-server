@@ -1,4 +1,4 @@
-const {pool} = require('../database/pool.js');
+const { pool } = require('../database/pool.js');
 
 class Quiz {
     constructor({ id, title, description, user_id }) {
@@ -19,13 +19,16 @@ class Quiz {
         }
     }
 
-    async getAllQuizzesByUserId(user_id) {
+    static async getAllQuizzesByUserId(user_id) {
         try {
             const query = {
                 text: "SELECT * FROM quizzes WHERE user_id = $1;",
                 values: [user_id]
             }
             const res = await pool.query(query);
+            if (res.rows.length === 0) {
+                throw new Error('Unable to locate quiz.');
+            }
             return res.rows.map(q => new Quiz(q));
         } catch (error) {
             //console.error(error);
@@ -50,11 +53,14 @@ class Quiz {
         }
     }
 
-    static async create(data) {
+    static async create(title, description, user_id) {
         try {
             const query = {
                 text: "INSERT INTO quizzes (title, description, user_id) VALUES ($1, $2, $3) RETURNING *;",
-                values: [data.title, data.description, data.user_id]
+                values: [title, description, user_id]
+            }
+            if (!title || !description || !user_id) {
+                throw new Error('Missing required data.');
             }
             const { rows } = await pool.query(query);
             if (rows.length !== 1) {
@@ -85,9 +91,16 @@ class Quiz {
 
     async deleteQuizById(id) {
         try {
-            const query = 'DELETE FROM quizzes WHERE id = $1';
-            const values = [id];
-            await pool.query(query, values);
+            const checkQuery = 'SELECT * FROM quizzes WHERE id = $1';
+            const checkValues = [id];
+            const checkResult = await pool.query(checkQuery, checkValues);
+            if (checkResult.rows.length !== 1) {
+                throw new Error('Unable to locate quiz.');
+            }
+
+            const deleteQuery = 'DELETE FROM quizzes WHERE id = $1';
+            const deleteValues = [id];
+            await pool.query(deleteQuery, deleteValues);
         } catch (error) {
             //console.error(error);
             throw new Error('Unable to locate quiz.');
