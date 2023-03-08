@@ -19,8 +19,8 @@ class User {
             }
             return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while retrieving user by ID');
+            //console.error(error);
+            throw new Error('An error occurred while retrieving user by ID.');
         }
     }
 
@@ -34,23 +34,25 @@ class User {
             }
             return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            //console.error(error);
+            throw new Error('An error occurred while retrieving user by ID.');
         }
     }
 
     static async createUser(username, password, role) {
         try {
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
             const query = 'INSERT INTO users (username, password, role) VALUES ($1, $2, $3) RETURNING *';
-            const values = [username, password, role];
+            const values = [username, hashedPassword, role];
             const { rows } = await pool.query(query, values);
             if (rows.length === 0) {
                 throw new Error('User not found');
             }
             return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            //console.error(error);
+            throw new Error('An error occurred while retrieving user by ID.');
         }
     }
 
@@ -66,8 +68,8 @@ class User {
             }
             return rows[0];
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            //console.error(error);
+            throw new Error('An error occurred while retrieving user by ID.');
         }
     }
 
@@ -77,8 +79,8 @@ class User {
             const values = [id];
             await pool.query(query, values);
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            //console.error(error);
+            throw new Error('An error occurred while retrieving user by ID.');
         }
     }
 
@@ -95,8 +97,8 @@ class User {
             }
             return user;
         } catch (error) {
-            console.error(error);
-            throw new Error('An error occurred while getting a quiz by id.');
+            //console.error(error);
+            throw new Error('An error occurred while retrieving user by ID.');
         }
     }
 }

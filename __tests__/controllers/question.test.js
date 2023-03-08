@@ -25,4 +25,10 @@ describe('Question Controller', () => {
             expect(typeof questionController.destroy).toBe('function');
         });
     });
+
+    describe('update', () => {
+        test('is a function', () => {
+            expect(typeof questionController.update).toBe('function');
+        });
+    });
 })
