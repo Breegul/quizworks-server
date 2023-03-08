@@ -36,8 +36,6 @@ INSERT INTO answers (text, is_correct, question_id) VALUES
     ('Indian', FALSE, 4),
     ('Panthalassa', TRUE, 4);
 
-
-
 -- Insert some sample notes for user3
 INSERT INTO notes (title, content, user_id) VALUES
     ('Math Notes', 'My notes on algebra and geometry.', 3),
