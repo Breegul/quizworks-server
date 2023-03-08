@@ -51,6 +51,7 @@ class Question {
 
     static async getByQuestionId(question_id) {
         try {
+            console.log("get", question_id);
             const query = {
                 text: "SELECT * FROM questions WHERE id = $1;",
                 values: [question_id]
@@ -110,18 +111,18 @@ class Question {
     //     }
     // }
 
-    async destroy(questionId) {
+    async destroy() {
         try {
             const query = {
                 text: 'DELETE FROM questions WHERE id = $1 RETURNING *;',
-                values: [questionId]
+                values: [this.id]
             }
             const { rows } = await pool.query(query);
-            const { id, text: questionText, quiz_id } = rows[0];
+            // const { id, text: questionText, quiz_id } = rows[0];
             //return new Question(id, questionText, quiz_id);
             return rows[0].id;
         } catch (error) {
-            //console.error(error);
+            console.log(error);
             throw new Error('An error occurred while deleting a question.');
         }
     }
@@ -151,9 +152,9 @@ class Question {
             //console.log("rows[0] : ", rows[0]);
             //const { id, text: questionText, quiz_id } = rows[0];
             //return new Question(id, questionText, quiz_id);
-            return rows[0];
+            return new Question(rows[0]);
         } catch (error) {
-            //console.error(error);
+            console.log(error);
             throw new Error('An error occurred while editing a question.')
         }
     }
