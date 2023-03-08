@@ -59,8 +59,7 @@ class Question {
             if (rows.length === 0) {
                 throw new Error('Question not found');
             }
-            const { id, text: questionText, quiz_id } = rows[0];
-            return new Question(id, questionText, quiz_id);
+            return new Question(rows[0]);
         } catch (error) {
             //console.error(error);
             throw new Error('An error occurred while getting a question by id.');
