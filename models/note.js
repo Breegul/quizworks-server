@@ -36,6 +36,9 @@ class Note {
     }
 
     async createNote(title, content, userId) {
+        if (!title || !content || !userId) {
+            throw new Error('Invalid input.');
+        }
         try {
             const query = 'INSERT INTO notes (title, content, user_id) VALUES ($1, $2, $3) RETURNING *';
             const values = [title, content, userId];
@@ -64,9 +67,17 @@ class Note {
 
     async deleteNoteById(id) {
         try {
-            const query = 'DELETE FROM notes WHERE id = $1';
-            const values = [id];
-            await pool.query(query, values);
+            // Check if the note exists in the database
+            const selectQuery = 'SELECT * FROM notes WHERE id = $1';
+            const selectValues = [id];
+            const { rowCount } = await pool.query(selectQuery, selectValues);
+            if (rowCount === 0) {
+                throw new Error('Unable to locate note.');
+            }
+            // Delete the note
+            const deleteQuery = 'DELETE FROM notes WHERE id = $1';
+            const deleteValues = [id];
+            await pool.query(deleteQuery, deleteValues);
         } catch (error) {
             //console.error(error);
             throw new Error('Unable to locate note.');
