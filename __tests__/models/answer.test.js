@@ -33,4 +33,10 @@ describe('Answer model', () => {
             expect(typeof answer.destroy).toBe('function');
         });
     });
+
+    describe('update', () => {
+        test('is a function', () => {
+            expect(typeof answer.update).toBe('function');
+        });
+    });
 })

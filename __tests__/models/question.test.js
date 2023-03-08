@@ -33,4 +33,10 @@ describe('Question model', () => {
             expect(typeof question.destroy).toBe('function');
         });
     });
+
+    describe('update', () => {
+        test('is a function', () => {
+            expect(typeof question.update).toBe('function');
+        });
+    });
  })
