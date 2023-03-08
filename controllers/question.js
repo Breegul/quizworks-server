@@ -23,7 +23,8 @@ async function getByQuestionId(req, res) {
 async function create(req, res) {
     try {
         req.body.quiz_id = parseInt(req.params.id);
-        const question = await Question.create(req.body);
+        req.body.text = parseInt(req.params.text);
+        const question = await Question.create(req.body.text, req.body.quiz_id);
         res.status(201).json(question);
     } catch (err) {
         res.status(500).json({ "error": err.message });

@@ -148,7 +148,7 @@ class Question {
             if (rows.length === 0) {
                 throw new Error('Question not found');
             }
-            console.log("rows[0] : ", rows[0]);
+            //console.log("rows[0] : ", rows[0]);
             //const { id, text: questionText, quiz_id } = rows[0];
             //return new Question(id, questionText, quiz_id);
             return rows[0];
