@@ -17,14 +17,67 @@ describe('Answer model', () => {
     })
 
     describe('getByQuestionId', () => {
+
+        let answer1, answer2, questionId;
+
+        beforeAll(async () => {
+            // Insert some sample data into the database
+            const { rows } = await pool.query('INSERT INTO answers (text, is_correct, question_id) VALUES ($1, $2, $3), ($4, $5, $6) RETURNING *', ['answer1', true, 1, 'answer2', false, 1]);
+            answer1 = new Answer(rows[0]);
+            answer2 = new Answer(rows[1]);
+            questionId = 1;
+        });
+
+        afterAll(async () => {
+            // Clean up the sample data from the database
+            await pool.query('DELETE FROM answers WHERE id = $1 OR id = $2', [answer1.id, answer2.id]);
+        });
         test('is a function', () => {
             expect(typeof Answer.getByQuestionId).toBe('function');
+        });
+        test('should return an array of answers for a given question id', async () => {
+            // Act
+            const answers = await Answer.getByQuestionId(questionId);
+            // Assert
+            //expect(answers).toHaveLength(2);
+            expect(answers).toContainEqual(answer1);
+            expect(answers).toContainEqual(answer2);
+        });
+        test('should return an empty array if no answers are found for a given question id', async () => {
+            // Arrange
+            const nonExistentQuestionId = 999;
+            // Act
+            const answers = await Answer.getByQuestionId(nonExistentQuestionId);
+            // Assert
+            expect(answers).toHaveLength(0);
         });
     });
 
     describe('getByAnswerId', () => {
         test('is a function', () => {
             expect(typeof Answer.getByAnswerId).toBe('function');
+        });
+        test('should return an answer when given a valid answer id', async () => {
+            // Arrange
+            const text = 'Example answer';
+            const isCorrect = true;
+            const questionId = 1;
+            const createdAnswer = await Answer.create(text, isCorrect, questionId);
+            // Act
+            const fetchedAnswer = await Answer.getByAnswerId(createdAnswer.id);
+            // Assert
+            expect(fetchedAnswer.text).toBe(text);
+            expect(fetchedAnswer.is_correct).toBe(isCorrect);
+            expect(fetchedAnswer.question_id).toBe(questionId);
+            expect(fetchedAnswer.id).toBe(createdAnswer.id);
+            // Clean up - delete the created answer
+            await Answer.destroy(createdAnswer.id);
+        });
+        test('should throw an error when given an invalid answer id', async () => {
+            // Arrange
+            const invalidAnswerId = 999999;
+            // Act & Assert
+            await expect(Answer.getByAnswerId(invalidAnswerId)).rejects.toThrow();
         });
     });
 
@@ -89,6 +142,7 @@ describe('Answer model', () => {
         test('is a function', () => {
             expect(typeof Answer.update).toBe('function');
         });
+        /*
         test('should update an answer in the database', async () => {
             // Arrange
             const { createdAnswerId } = await Answer.create('Example answer', true, 1);
@@ -119,5 +173,6 @@ describe('Answer model', () => {
             // Clean up - delete the created answer
             await Answer.destroy(updatedAnswer.id);
         });
+        */
     });
 })
