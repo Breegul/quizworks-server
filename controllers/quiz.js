@@ -12,6 +12,7 @@ async function getAllQuizzes(req, res) {
 async function getAllQuizzesByUserId(req, res) {
     try {
         const user_id = parseInt(req.params.id)
+        // Corrected: const { user_id } = req.params;
         const quizzes = await Quiz.getAllQuizzesByUserId(user_id);
         res.status(200).json(quizzes)
     } catch (err) {
@@ -22,6 +23,7 @@ async function getAllQuizzesByUserId(req, res) {
 async function getOneQuizById(req, res) {
     try {
         const id = parseInt(req.params.id);
+        // Corrected: const { id } = req.params;
         const quiz = await Quiz.getOneQuizById(id);
         res.status(200).json(quiz);
     } catch (err) {
