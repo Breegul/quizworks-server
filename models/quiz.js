@@ -46,9 +46,9 @@ class Quiz {
             if (rows.length !== 1) {
                 throw new Error('Unable to locate quiz.');
             }
-            return rows[0];
+            return new Quiz(rows[0]);
         } catch (error) {
-            //console.error(error);
+            console.log(error);
             throw new Error('Unable to locate quiz.');
         }
     }
@@ -68,8 +68,8 @@ class Quiz {
             }
             return rows[0];
         } catch (error) {
-            //console.error(error);
-            throw new Error("Unable to locate quiz.")
+            // console.log(error);
+            throw new Error("Unable to create quiz.")
         }
     }
 
