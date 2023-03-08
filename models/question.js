@@ -51,7 +51,6 @@ class Question {
 
     static async getByQuestionId(question_id) {
         try {
-            console.log("get", question_id);
             const query = {
                 text: "SELECT * FROM questions WHERE id = $1;",
                 values: [question_id]

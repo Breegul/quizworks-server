@@ -53,7 +53,7 @@ async function deleteQuizById(req, res, next) {
     try {
         const { id } = req.params;
         const quiz = await Quiz.getOneQuizById(id);
-        console.log(quiz);
+        // console.log(quiz);
         if (!quiz) {
             return res.status(404).json({ message: 'Quiz not found' });
         }

@@ -86,7 +86,6 @@ class Answer {
             const valuesFind = [answerId];
             const res = await pool.query(queryFind, valuesFind);
             const foundRows = res.rows[0];
-            console.log("found", foundRows);
             //console.error("foundRows[0] : ", foundRows[0]);
             if (foundRows.length === 0) {
                 throw new Error('User not found');
