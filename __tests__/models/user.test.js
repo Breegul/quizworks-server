@@ -188,18 +188,17 @@ describe('User', () => {
       expect(typeof User.verifyUser).toBe('function');
     });
     test('should return user object if username and password match', async () => {
-      // create a new user with a known username and password
+      // Arrange
       const username = 'testuser99u765';
       const password = 'testpass';
       const role = 'student';
       await User.createUser(username, password, role);
-      // verify the user's credentials
+      // Act
       const verifiedUser = await User.verifyUser(username, password);
-      // assert that the verified user object matches the expected values
+      // Assess
       expect(verifiedUser.username).toBe(username);
       expect(verifiedUser.role).toBe(role);
-      // clean up by deleting the user
-      //await User.deleteUser(verifiedUser.id);
+      // Clean up by deleting the user
       await new User().deleteUser(verifiedUser.id);
     });
 
