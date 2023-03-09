@@ -26,10 +26,10 @@ async function getByQuestionId(req, res) {
 
 async function create(req, res) {
     try {
-        req.body.quiz_id = parseInt(req.params.id);
-        req.body.text = parseInt(req.params.text);
+        const quizId = parseInt(req.params.id);
+        const text = req.body.text;
         // Corrected: const { text, quizId } = req.body;
-        const question = await Question.create(req.body.text, req.body.quiz_id);
+        const question = await Question.create(text, quizId);
         // Corrected: const question = await Question.create(text, quizId);
         res.status(201).json(question);
     } catch (err) {
@@ -42,10 +42,8 @@ async function destroy(req, res) {
         const id = parseInt(req.params.q_id);
         // Corrected: const questionId = req.params.questionId;
         const question = await Question.getByQuestionId(id);
-        await question.destroy();
-        // Corrected: const deletedQuestionId = await question.destroy();
-        res.sendStatus(204);
-        // Corrected: res.status(200).json({ questionId: deletedQuestionId });
+        const deletedQuestionId = await question.destroy();
+        res.status(200).json({ questionId: deletedQuestionId });
     } catch (err) {
         res.status(500).json({ "error": err.message });
     }
@@ -53,14 +51,11 @@ async function destroy(req, res) {
 
 async function update(req, res) {
     try {
-        const id = parseInt(req.params.q_id);
-        // Corrected: const questionId = req.params.questionId;
-        // Corrected: const { text, quizId } = req.body;
-        const question = await Question.getByQuestionId(id);
-        const result = await question.update(req.body);
-        // Corrected: const updatedQuestion = await Question.update(questionId, text, quizId);
-        res.status(200).json(result);
-        // Corrected: res.status(200).json({ question: updatedQuestion });
+        const questionId = parseInt(req.params.q_id);
+        const quizId = parseInt(req.params.id);
+        const { text } = req.body;
+        const updatedQuestion = await Question.update(questionId, text, quizId);
+        res.status(200).json(updatedQuestion);
     } catch (err) {
         res.status(500).json({"error": err.message});
     }

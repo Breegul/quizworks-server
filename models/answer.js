@@ -71,7 +71,7 @@ class Answer {
             //return new Answer(res.rows[0])
             return rows[0].id;
         } catch (error) {
-            //console.error(error);
+            console.log(error);
             throw new Error('An error occurred while deleting an answer.');
         }
     }
@@ -84,11 +84,13 @@ class Answer {
             // find answer by id, that it exists in the database
             const queryFind = 'SELECT * FROM answers WHERE id = $1';
             const valuesFind = [answerId];
-            const { foundRows } = await pool.query(queryFind, valuesFind);
+            const res = await pool.query(queryFind, valuesFind);
+            const foundRows = res.rows[0];
             //console.error("foundRows[0] : ", foundRows[0]);
             if (foundRows.length === 0) {
                 throw new Error('User not found');
             }
+
             // update
             const queryText = 'UPDATE answers SET text = $1, is_correct = $2 WHERE id = $3 RETURNING *;';
             const values = [text, is_correct, answerId];
@@ -101,7 +103,7 @@ class Answer {
             //console.error("rows[0] : ", rows[0]);
             return rows[0];
         } catch (error) {
-            //console.error(error);
+            console.log(error);
             throw new Error('An error occurred while updating an answer.')
         }
     }
