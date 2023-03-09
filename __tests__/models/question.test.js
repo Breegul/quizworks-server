@@ -12,14 +12,74 @@ describe('Question model', () => {
     })
 
     describe('getByQuizId', () => {
+
+        beforeAll(async () => {
+            const quizId = 1;
+            const questions = [
+                { text: 'Question 1', quiz_id: quizId },
+                { text: 'Question 2', quiz_id: quizId },
+                { text: 'Question 3', quiz_id: quizId },
+            ];
+            const query = {
+                text: 'INSERT INTO questions (text, quiz_id) VALUES ($1, $2), ($3, $4), ($5, $6) RETURNING *;',
+                values: [questions[0].text, questions[0].quiz_id, questions[1].text, questions[1].quiz_id, questions[2].text, questions[2].quiz_id],
+            };
+            await pool.query(query);
+        });
+
+        afterAll(async () => {
+            // Clean up test data
+            await pool.query('DELETE FROM questions;');
+        });
+
         test('is a function', () => {
             expect(typeof Question.getByQuizId).toBe('function');
+        });
+        // This test below needs fixing. Code: #####
+        test('should return an array of questions for a given quiz_id', async () => {
+            const quizId = 1;
+            const questions = await Question.getByQuizId(quizId);
+            //expect(questions).toHaveLength(3);
+            questions.forEach((question, i) => {
+                expect(question).toBeInstanceOf(Question);
+                expect(question.text).toBe(`Question ${i + 1}`);
+                expect(question.quiz_id).toBe(quizId);
+            });
+        });
+        // This test below needs fixing. Code: #####
+        test('should throw an error if quiz_id does not exist', async () => {
+            const quizId = 999;
+            await expect(Question.getByQuizId(quizId)).rejects.toThrow('An error occurred while getting a question by quiz_id.');
         });
     });
 
     describe('getByQuestionId', () => {
+
+        beforeAll(async () => {
+            // Insert test data
+            const { rows } = await pool.query('INSERT INTO questions (text, quiz_id) VALUES ($1, $2) RETURNING *;', ['Question 1', 1]);
+            question = rows[0];
+        });
+
+        afterAll(async () => {
+            // Clean up test data
+            await pool.query('DELETE FROM questions WHERE id = $1;', [question.id]);
+        });
+
         test('is a function', () => {
             expect(typeof Question.getByQuestionId).toBe('function');
+        });
+        // This test below needs fixing. Code: #####
+        test('should return a Question object for a given question id', async () => {
+            const result = await Question.getByQuestionId(question.id);
+            expect(result).toBeInstanceOf(Question);
+            expect(result.id).toBe(question.id);
+            expect(result.text).toBe('Question 1');
+            expect(result.quiz_id).toBe(1);
+        });
+        // This test below needs fixing. Code: #####
+        test('should throw an error if question not found', async () => {
+            await expect(Question.getByQuestionId(9999)).rejects.toThrow('Question not found');
         });
     });
 
@@ -101,7 +161,7 @@ describe('Question model', () => {
             expect(result.rows.length).toBe(1);
             expect(result.rows[0].text).toBe(updatedQuestionText);
             expect(result.rows[0].quiz_id).toBe(quizId);
-          });
-          
+        });
+
     });
 })
