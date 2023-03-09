@@ -55,7 +55,7 @@ async function update(req, res) {
         const quizId = parseInt(req.params.id);
         const { text } = req.body;
         const updatedQuestion = await Question.update(questionId, text, quizId);
-        res.status(200).json({ question: updatedQuestion });
+        res.status(200).json(updatedQuestion);
     } catch (err) {
         res.status(500).json({"error": err.message});
     }
