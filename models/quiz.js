@@ -14,7 +14,7 @@ class Quiz {
             const res = await pool.query(query);
             return res.rows.map(q => new Quiz(q));
         } catch (error) {
-            //console.error(error);
+            console.log(error);
             throw new Error('Unable to locate quiz.');
         }
     }
